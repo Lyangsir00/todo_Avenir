@@ -1,7 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_app_2/firebase/firebase_auth.dart';
 import 'package:todo_app_2/screens/Auth/screens/signup_page.dart';
-import 'package:todo_app_2/screens/homepage/home_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -16,45 +15,6 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-
-  Future<void> userLogin() async {
-    try {
-      // Attempt to sign in the user
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email.trim(),
-        password: password.trim(),
-      );
-
-      // Navigate to HomePage upon successful login
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
-      );
-    } on FirebaseAuthException catch (e) {
-      // Handle specific error codes
-      String errorMessage;
-
-      if (e.code == 'user-not-found') {
-        errorMessage = "The email address is not registered.";
-      } else if (e.code == 'wrong-password') {
-        errorMessage = "The password you entered is incorrect.";
-      } else if (e.code == 'invalid-email') {
-        errorMessage = "The email address is not valid.";
-      } else {
-        errorMessage = "Enter valid email and password";
-      }
-
-      // Show error message using SnackBar
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(errorMessage)),
-      );
-    } catch (e) {
-      // Handle other unexpected errors
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("An error occurred: ${e.toString()}")),
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -160,12 +120,16 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 InkWell(
                   borderRadius: BorderRadius.circular(30),
-                  onTap: () {
+                  onTap: () async {
                     if (_formKey.currentState!.validate()) {
-                      email = _emailController.text;
+                      email = _emailController.text.trim();
                       password = _passwordController.text;
+                      await FirebaseAuthHelper.userLogin(
+                        email: email,
+                        password: password,
+                        context: context,
+                      );
                     }
-                    userLogin();
                   },
                   child: Container(
                     height: 70,

@@ -1,6 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:todo_app_2/firebase/firebase_auth.dart';
 import 'package:todo_app_2/screens/Auth/screens/login_page.dart';
 
 class SignupPage extends StatefulWidget {
@@ -23,54 +22,6 @@ class _SignupPageState extends State<SignupPage> {
   final _formKey = GlobalKey<FormState>();
 
   /// Registration method
-  registration() async {
-    if (_formKey.currentState!.validate()) {
-      setState(() {
-        email = _emailController.text;
-        fullName = _fullNameController.text;
-        password = _passwordController.text;
-        phone = _phoneController.text;
-      });
-
-      try {
-        // Create a new user with FirebaseAuth
-        UserCredential userCredential = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(email: email, password: password);
-
-        // Get the user's UID
-        String uid = userCredential.user!.uid;
-
-        // Add user details to Firestore
-        await FirebaseFirestore.instance.collection('users').doc(uid).set({
-          'fullName': fullName,
-          'email': email,
-          'phone': phone,
-          'uid': uid,
-          'createdAt': FieldValue.serverTimestamp(), // Add timestamp
-        });
-
-        // Success message
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Registered successfully")));
-
-        // Navigate to the Login page
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const LoginPage()));
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'email-already-in-use') {
-          ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("The email is already in use")));
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text("Registration failed: ${e.message}")));
-        }
-      } catch (e) {
-        // Handle other errors
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text("An error occurred: $e")));
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -170,7 +121,27 @@ class _SignupPageState extends State<SignupPage> {
                 const SizedBox(height: 20),
                 InkWell(
                   borderRadius: BorderRadius.circular(30),
-                  onTap: registration,
+                  onTap: () async {
+                    if (_formKey.currentState!.validate()) {
+                      // Fetch the values from the TextEditingControllers
+                      final email = _emailController.text.trim();
+                      final password = _passwordController.text;
+
+                      // Call the registerUser method with the updated values
+                      await FirebaseAuthHelper().registerUser(
+                        email: email,
+                        password: password,
+                        context: context,
+                      );
+
+                      // Navigate to the login page after registration
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginPage()),
+                      );
+                    }
+                  },
                   child: Container(
                     height: 70,
                     width: double.infinity,
