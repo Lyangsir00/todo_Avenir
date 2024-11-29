@@ -30,6 +30,18 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+macos/
+
+# Web specific build files
+web/
+
+# Windows specific files
+windows/
+
+
+# Linux specific files
+linux/
+
 
 # Symbolication related
 app.*.symbols

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -40,7 +39,7 @@ class _HomePageState extends State<HomePage> {
     } else {
       // Optionally show a message to the user
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text("Task cannot be empty!"),
           backgroundColor: Colors.red,
         ),
@@ -53,7 +52,54 @@ class _HomePageState extends State<HomePage> {
   void deleteTask(int index) {
     setState(() {
       todoList.removeAt(index);
+      saveTasks();
     });
+  }
+
+  void editTask(int index) {
+    TextEditingController editController = TextEditingController();
+    editController.text = todoList[index][0]; // Pre-fill with current task name
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Edit Task"),
+          content: TextField(
+            controller: editController,
+            decoration: const InputDecoration(hintText: "Enter new task name"),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context); // Close dialog without saving
+              },
+              child: const Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () {
+                if (editController.text.trim().isNotEmpty) {
+                  setState(() {
+                    todoList[index][0] = editController.text.trim();
+                  });
+                  saveTasks(); // Save updated tasks
+                  Navigator.pop(context); // Close dialog after saving
+                } else {
+                  // Optionally show a message for empty input
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Task name cannot be empty!"),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                }
+              },
+              child: const Text("Save"),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   Future<void> saveTasks() async {
@@ -106,36 +152,36 @@ class _HomePageState extends State<HomePage> {
             taskCompleted: todoList[index][1],
             onChanged: (value) => checkBoxChanged(index),
             deleteFunction: () => deleteTask(index),
+            editTask: () => editTask(index),
           );
         },
         itemCount: todoList.length,
       ),
       floatingActionButton: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 020),
+        padding: const EdgeInsets.symmetric(horizontal: 020),
         child: Row(
           children: [
             Expanded(
                 child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: TextField(
-                      maxLength: 20,
                       controller: _taskController,
                       decoration: InputDecoration(
                         hintText: "Add new Todo task",
                         filled: true,
                         fillColor: Colors.deepPurple.shade200,
                         enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
+                          borderSide: const BorderSide(color: Colors.white),
                           borderRadius: BorderRadius.circular(15),
                         ),
-                        focusedBorder: OutlineInputBorder(
+                        focusedBorder: const OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.deepPurple),
                         ),
                       ),
                     ))),
             FloatingActionButton(
               onPressed: savedNewTask,
-              child: Icon(Icons.add),
+              child: const Icon(Icons.add),
             ),
           ],
         ),
