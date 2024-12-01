@@ -19,6 +19,8 @@ class _SignupPageState extends State<SignupPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   /// Registration method
@@ -119,6 +121,25 @@ class _SignupPageState extends State<SignupPage> {
                           borderRadius: BorderRadius.circular(20))),
                 ),
                 const SizedBox(height: 20),
+                TextFormField(
+                  controller: _confirmPasswordController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Confirm password is required";
+                    }
+                    if (value != _passwordController.text) {
+                      return 'Password doesnt match';
+                    }
+                    return null;
+                  },
+                  decoration: InputDecoration(
+                      hintText: "Confirm password",
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20))),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
                 InkWell(
                   borderRadius: BorderRadius.circular(30),
                   onTap: () async {
