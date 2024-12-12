@@ -1,5 +1,5 @@
 import 'package:demo1_application/api/todo_service.dart';
-import 'package:demo1_application/models/todos_model.dart';
+import 'package:demo1_application/model/todos_model.dart';
 import 'package:flutter/material.dart';
 
 class ApiProvider extends ChangeNotifier {

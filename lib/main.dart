@@ -1,4 +1,6 @@
+import 'package:demo1_application/login/login_page.dart';
 import 'package:demo1_application/provider/api_provider.dart';
+import 'package:demo1_application/screen/data_receiver.dart';
 import 'package:demo1_application/screen/home_page.dart';
 import 'package:demo1_application/screen/third_screen.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +25,11 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         home: const HomePage(),
-        routes: {"/thirdScreen": (context) => const ThirdScreen()},
+        routes: {
+          "/loginPage": (context) => const LoginPage(),
+          "/thirdScreen": (context) => const ThirdScreen(),
+          "/dataReceiver": (context) => const DataReceiver()
+        },
       ),
     );
   }

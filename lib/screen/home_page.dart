@@ -1,5 +1,6 @@
 import 'package:demo1_application/api/api.dart';
 import 'package:demo1_application/provider/api_provider.dart';
+import 'package:demo1_application/screen/new_page.dart';
 import 'package:demo1_application/screen/second_screen.dart';
 import 'package:demo1_application/widgets/custom_buttons.dart';
 
@@ -30,6 +31,7 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               children: [
                 CustomButton(
+                  borderRadius: BorderRadius.circular(5),
                   buttonText: "third screen",
                   onTap: () {
                     Navigator.pushNamed(context, '/thirdScreen');
@@ -62,19 +64,26 @@ class _HomePageState extends State<HomePage> {
                                   borderRadius: BorderRadius.circular(30),
                                   color: Colors.blue),
                               height: 200,
-                              child: Column(
-                                children: [
-                                  Text("${snapshot.data?[index].id}"),
-                                  Text("${snapshot.data?[index].userId}"),
-                                  Text(
-                                    "${snapshot.data?[index].title}",
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  Text(
-                                    "${snapshot.data?[index].body}",
-                                  )
-                                ],
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => NewPage(
+                                          data: snapshot.data?[index])));
+                                },
+                                child: Column(
+                                  children: [
+                                    Text("${snapshot.data?[index].id}"),
+                                    Text("${snapshot.data?[index].userId}"),
+                                    Text(
+                                      "${snapshot.data?[index].title}",
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text(
+                                      "${snapshot.data?[index].body}",
+                                    )
+                                  ],
+                                ),
                               ),
                             );
                           },
@@ -87,6 +96,16 @@ class _HomePageState extends State<HomePage> {
                     },
                   ),
                 ),
+                const SizedBox(
+                  height: 15,
+                ),
+                CustomButton(
+                  borderRadius: BorderRadius.circular(5),
+                  buttonText: "Login",
+                  onTap: () {
+                    Navigator.pushNamed(context, "/loginPage");
+                  },
+                )
               ],
             ),
           ),

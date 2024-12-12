@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:demo1_application/models/todos_model.dart';
+import 'package:demo1_application/model/todos_model.dart';
 import 'package:http/http.dart' as http;
 
 class TodoService {

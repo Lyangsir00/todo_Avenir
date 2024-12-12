@@ -28,10 +28,16 @@ class _ThirdScreenState extends State<ThirdScreen> {
           return ListView.builder(
               itemCount: todos.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(todos[index].title),
-                  leading:
-                      CircleAvatar(child: Text(todos[index].id.toString())),
+                return InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/dataReceiver',
+                        arguments: todos[index]);
+                  },
+                  child: ListTile(
+                    title: Text(todos[index].title),
+                    leading:
+                        CircleAvatar(child: Text(todos[index].id.toString())),
+                  ),
                 );
               });
         }));
