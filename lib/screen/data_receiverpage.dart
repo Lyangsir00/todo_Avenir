@@ -12,8 +12,10 @@ class DataReceiverpage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.blue,
       ),
-      body: Column(
-        children: [Text(firstName), Text(lastName)],
+      body: Center(
+        child: Column(
+          children: [Text(firstName), Text(lastName)],
+        ),
       ),
     );
   }

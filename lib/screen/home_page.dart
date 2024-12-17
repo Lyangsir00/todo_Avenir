@@ -1,7 +1,7 @@
 import 'package:demo1_application/api/api.dart';
 import 'package:demo1_application/provider/api_provider.dart';
 import 'package:demo1_application/screen/new_page.dart';
-import 'package:demo1_application/screen/second_screen.dart';
+import 'package:demo1_application/screen/product_page.dart';
 import 'package:demo1_application/widgets/custom_buttons.dart';
 
 import 'package:flutter/material.dart';
@@ -23,16 +23,17 @@ class _HomePageState extends State<HomePage> {
     return Consumer<ApiProvider>(
       builder: (context, value, child) => Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.blue,
+          backgroundColor: const Color.fromARGB(255, 116, 114, 117),
         ),
         body: Expanded(
           child: Padding(
             padding: const EdgeInsets.all(10),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 CustomButton(
                   borderRadius: BorderRadius.circular(5),
-                  buttonText: "third screen",
+                  buttonText: "Go to third screen",
                   onTap: () {
                     Navigator.pushNamed(context, '/thirdScreen');
                   },
@@ -41,10 +42,14 @@ class _HomePageState extends State<HomePage> {
                   height: 10,
                 ),
                 CustomButton(
-                  buttonText: "secondScreen",
+                  borderRadius: BorderRadius.circular(10),
+                  buttonText: "Go to Product Page",
+                  backgroundColor: Colors.green.shade400,
+                  textColor: Colors.white,
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const SecondScreen()));
+                      builder: (context) => const ProductPage(),
+                    ));
                   },
                 ),
                 const SizedBox(
@@ -58,12 +63,12 @@ class _HomePageState extends State<HomePage> {
                       if (snapshot.hasData) {
                         return ListView.builder(
                           itemBuilder: (context, index) {
-                            return Container(
-                              margin: const EdgeInsets.all(20),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30),
-                                  color: Colors.blue),
-                              height: 200,
+                            return Card(
+                              color: Colors.blueGrey,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20)),
+                              margin: const EdgeInsets.symmetric(
+                                  vertical: 8, horizontal: 10),
                               child: InkWell(
                                 onTap: () {
                                   Navigator.of(context).push(MaterialPageRoute(

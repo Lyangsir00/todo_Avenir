@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
               controller: firstNameController,
               hintText: "Firstname",
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             InputField(

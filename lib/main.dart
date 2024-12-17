@@ -1,5 +1,6 @@
 import 'package:demo1_application/login/login_page.dart';
 import 'package:demo1_application/provider/api_provider.dart';
+import 'package:demo1_application/provider/cart_provider.dart';
 import 'package:demo1_application/screen/data_receiver.dart';
 import 'package:demo1_application/screen/home_page.dart';
 import 'package:demo1_application/screen/third_screen.dart';
@@ -17,7 +18,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (context) => ApiProvider())],
+      providers: [
+        ChangeNotifierProvider(create: (context) => CartProvider()),
+        ChangeNotifierProvider(create: (context) => ApiProvider())
+      ],
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
