@@ -120,7 +120,7 @@ class _SignupPageState extends State<SignupPage> {
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20))),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 10),
                 TextFormField(
                   controller: _confirmPasswordController,
                   validator: (value) {
@@ -137,7 +137,7 @@ class _SignupPageState extends State<SignupPage> {
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(20))),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 InkWell(

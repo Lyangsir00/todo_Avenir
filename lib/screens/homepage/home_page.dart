@@ -3,7 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todo_app_2/screens/Auth/screens/login_page.dart';
+import 'package:todo_app_2/screens/product/product_page.dart';
 import 'package:todo_app_2/utility/todo_list.dart';
+import 'package:todo_app_2/widgets/custom_buttom.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -130,6 +132,17 @@ class _HomePageState extends State<HomePage> {
         ),
         centerTitle: true,
         actions: [
+          CustomButton(
+            borderRadius: BorderRadius.circular(10),
+            buttonText: "Go to Product Page",
+            backgroundColor: Colors.purple,
+            textColor: Colors.white,
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const ProductPage(),
+              ));
+            },
+          ),
           IconButton(
             onPressed: () {
               FirebaseAuth.instance.signOut();
