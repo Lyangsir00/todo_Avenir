@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_basics/controller/counter_controller.dart';
+import 'package:getx_basics/screen/counter_second.dart';
 
 class CounterPage extends StatefulWidget {
   const CounterPage({super.key});
@@ -10,24 +11,26 @@ class CounterPage extends StatefulWidget {
 }
 
 class _CounterPageState extends State<CounterPage> {
-  final CounterController controller = CounterController();
+  final CounterController controller = Get.put(CounterController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text("FirstCounterPage"),
+      ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Obx(() => Text(
                 "${controller.count}",
-                style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
               )),
           Center(
               child: TextButton(
                   onPressed: () {
                     controller.increment();
                     Get.bottomSheet(
-                        Container(
+                        const SizedBox(
                           height: 200,
                           child: Text(
                             "this is a bottomsheet example",
@@ -39,7 +42,7 @@ class _CounterPageState extends State<CounterPage> {
                             borderRadius: BorderRadius.circular(30)),
                         backgroundColor: Colors.purple);
                   },
-                  child: Text(
+                  child: const Text(
                     "Increment",
                     style: TextStyle(fontSize: 20),
                   ))),
@@ -48,10 +51,16 @@ class _CounterPageState extends State<CounterPage> {
                 controller.decrement();
                 Get.snackbar('Decrement click', "decrement by 1");
               },
-              child: Text(
+              child: const Text(
                 "Decrement",
                 style: TextStyle(fontSize: 20),
-              ))
+              )),
+          TextButton(
+            onPressed: () {
+              Get.to(() => const CounterSecond());
+            },
+            child: const Text("SecondPage"),
+          )
         ],
       ),
     );

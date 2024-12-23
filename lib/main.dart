@@ -3,8 +3,10 @@ import 'package:get/route_manager.dart';
 import 'package:getx_basics/screen/first_page.dart';
 import 'package:getx_basics/screen/second_page.dart';
 import 'package:getx_basics/screen/third_page.dart';
+import 'package:get_storage/get_storage.dart';
 
-void main() {
+Future<void> main() async {
+  await GetStorage.init();
   runApp(const MyApp());
 }
 
