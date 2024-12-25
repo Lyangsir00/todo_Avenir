@@ -11,9 +11,14 @@ class CounterController extends GetxController {
   }
 
   void loadName() {
-    name.value = storage.read("name") ?? "Demo";
+    name.value = storage.read("name") ?? "demo";
   }
 
+  void deleteName() {
+    storage.remove('name');
+  }
+
+  @override
   void onInit() {
     count.value = storage.read<int>('counter') ?? 0;
     super.onInit();

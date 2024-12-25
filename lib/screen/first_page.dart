@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/route_manager.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:getx_basics/controller/counter_controller.dart';
 import 'package:getx_basics/screen/counter_page.dart';
@@ -42,12 +41,12 @@ class _FirstPageState extends State<FirstPage> {
                   ),
                 ),
                 const SizedBox(
-                  width: 30,
+                  width: 55,
                 ),
                 Obx(
                   () => Text(
                     controller.name.value,
-                    style: const TextStyle(fontSize: 50),
+                    style: const TextStyle(fontSize: 30),
                   ),
                 ),
                 const Spacer(),
@@ -64,6 +63,11 @@ class _FirstPageState extends State<FirstPage> {
                     )),
               ],
             ),
+            TextButton(
+                onPressed: () {
+                  controller.deleteName();
+                },
+                child: const Text("Remove")),
             const SizedBox(
               height: 100,
             ),
