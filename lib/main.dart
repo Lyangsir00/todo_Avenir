@@ -4,11 +4,14 @@ import 'package:getx_basics/screen/first_page.dart';
 import 'package:getx_basics/screen/second_page.dart';
 import 'package:getx_basics/screen/third_page.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:getx_basics/service/stripe_service.dart';
 import 'package:getx_basics/view/cart_page.dart';
 import 'package:getx_basics/view/news_page.dart';
 
 Future<void> main() async {
   await GetStorage.init();
+  StripeService.init();
+  // Stripe.publishableKey = 'pk_test_TYooMQauvdEDq54NiTphI7jx';
   runApp(const MyApp());
 }
 

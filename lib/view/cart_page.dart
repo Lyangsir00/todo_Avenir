@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:getx_basics/controller/product_controller.dart';
+import 'package:getx_basics/view/payment_screen.dart';
 
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
@@ -15,7 +16,7 @@ class _CartPageState extends State<CartPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("CartPage"),
+        title: const Text("CartPage"),
       ),
       body: Obx(() {
         if (controller.item.isEmpty) {
@@ -43,6 +44,11 @@ class _CartPageState extends State<CartPage> {
           itemCount: controller.item.length,
         );
       }),
+      bottomNavigationBar: ElevatedButton(
+          onPressed: () {
+            Get.to(() => const PaymentScreen());
+          },
+          child: const Text("checkout")),
     );
   }
 }
