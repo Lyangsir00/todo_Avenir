@@ -1,0 +1,12 @@
+R_DEF: Internal format may change without notice
+local
+color colorOnPrimary
+color colorOnSecondary
+color colorPrimary
+color colorPrimaryVariant
+color colorSecondary
+color colorSecondaryVariant
+drawable launch_background
+mipmap ic_launcher
+style LaunchTheme
+style NormalTheme
