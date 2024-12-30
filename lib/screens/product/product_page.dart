@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_app_2/cart/cart_page.dart';
+import 'package:todo_app_2/screens/cart/cart_page.dart';
 import 'package:todo_app_2/constant.dart/const.dart';
 import 'package:todo_app_2/provider/cart_provider.dart';
 
@@ -16,9 +17,23 @@ class _SecondScreenState extends State<ProductPage> {
   Widget build(BuildContext context) {
     return Consumer<CartProvider>(
       builder: (context, value, child) => Scaffold(
+          backgroundColor: const Color.fromARGB(255, 117, 66, 206),
           appBar: AppBar(
-            title: const Text("Products"),
+            backgroundColor: const Color.fromARGB(255, 131, 4, 153),
+            title: const Text(
+              "Products",
+              style: TextStyle(color: Colors.white),
+            ),
             actions: [
+              TextButton(
+                  onPressed: () {
+                    Get.back();
+                  },
+                  child: Container(
+                    height: 20,
+                    color: Colors.green,
+                    child: const Text("return"),
+                  )),
               IconButton(
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(

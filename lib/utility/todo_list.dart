@@ -16,43 +16,41 @@ class TodoList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 20, top: 20, right: 20, bottom: 0),
-      child: Container(
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 131, 4, 153),
-            borderRadius: BorderRadius.circular(10)),
-        child: Row(
-          children: [
-            Checkbox(
-              value: taskCompleted,
-              onChanged: onChanged,
-              checkColor: Colors.white,
-              activeColor: Colors.black,
-              side: const BorderSide(color: Colors.white),
-            ),
-            Text(
-              taskName,
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  decoration: taskCompleted
-                      ? TextDecoration.lineThrough
-                      : TextDecoration.none,
-                  decorationThickness: 5,
-                  decorationColor: Colors.white),
-            ),
-            const Spacer(),
-            TextButton(
-                onPressed: deleteFunction,
-                child: const Icon(
-                  Icons.delete,
-                  color: Colors.red,
-                )),
-            TextButton(onPressed: editTask, child: const Icon(Icons.edit))
-          ],
-        ),
+    return Card(
+      // color: Colors.blueGrey,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+      child: Row(
+        children: [
+          Checkbox(
+            value: taskCompleted,
+            onChanged: onChanged,
+            checkColor: Colors.white,
+            activeColor: Colors.black,
+            side: const BorderSide(color: Colors.black),
+          ),
+          Text(
+            taskName,
+            style: TextStyle(
+                color: Colors.black,
+                fontSize: 18,
+                decoration: taskCompleted
+                    ? TextDecoration.lineThrough
+                    : TextDecoration.none,
+                decorationThickness: 5,
+                decorationColor: Colors.white),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+          ),
+          const Spacer(),
+          TextButton(
+              onPressed: deleteFunction,
+              child: const Icon(
+                Icons.delete,
+                color: Colors.red,
+              )),
+          TextButton(onPressed: editTask, child: const Icon(Icons.edit))
+        ],
       ),
     );
   }
